@@ -11,8 +11,8 @@ interface DockItemProps {
   itemRefs: React.RefObject<(HTMLDivElement | null)[]>;
 }
 
-const BASE_SIZE = 50;
-const MAX_SIZE = 72;
+const BASE_SIZE = 45;
+const MAX_SIZE = 65;
 
 const DockItem = ({
   icon,
