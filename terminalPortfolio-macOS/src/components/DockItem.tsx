@@ -57,7 +57,7 @@ const DockItem = ({
         <img
           src={icon}
           alt={label}
-          className="w-full h-full object-cover pointer-events-none"
+          className="w-full h-full object-contain pointer-events-none"
           draggable={false}
         />
       </motion.div>

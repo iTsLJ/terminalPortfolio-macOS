@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Apple, Wifi, Battery, Search, SlidersHorizontal } from "lucide-react";
+import { Wifi, Battery, Search, SlidersHorizontal } from "lucide-react";
+import { SiApple } from "react-icons/si";
 
 const MenuBar = () => {
   const [time, setTime] = useState(new Date());
@@ -24,7 +25,7 @@ const MenuBar = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-7 mac-menubar-glass flex items-center justify-between px-4 text-foreground/90 text-[13px] font-medium">
       <div className="flex items-center gap-4">
-        <Apple size={14} className="opacity-90" />
+        <SiApple size={14} className="opacity-90" />
         <span className="font-semibold">Terminal</span>
         {leftMenus.map((menu) => (
           <button
