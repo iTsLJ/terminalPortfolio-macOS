@@ -1,51 +1,85 @@
-import { useState, useEffect } from "react";
-import { Apple, Wifi, Battery, Search, SlidersHorizontal } from "lucide-react";
+import { motion } from "framer-motion";
 
-const MenuBar = () => {
-  const [time, setTime] = useState(new Date());
+interface DockItemProps {
+  icon: string;
+  label: string;
+  isActive: boolean;
+  mouseX: number | null;
+  index: number;
+  totalItems: number;
+  onClick: () => void;
+  itemRefs: React.RefObject<(HTMLDivElement | null)[]>;
+}
 
-  useEffect(() => {
-    const interval = setInterval(() => setTime(new Date()), 60000);
-    return () => clearInterval(interval);
-  }, []);
+const BASE_SIZE = 50;
+const MAX_SIZE = 72;
 
-  const formattedDate = time.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
-  const formattedTime = time.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-  });
+const DockItem = ({
+  icon,
+  label,
+  isActive,
+  mouseX,
+  index,
+  onClick,
+  itemRefs,
+}: DockItemProps) => {
+  let scale = 1;
 
-  const leftMenus = ["File", "Edit", "View", "Window", "Help"];
+  if (mouseX !== null && itemRefs.current) {
+    const el = itemRefs.current[index];
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const center = rect.left + rect.width / 2;
+      const dist = Math.abs(mouseX - center);
+      const maxDist = 130;
+      if (dist < maxDist) {
+        const ratio = 1 - dist / maxDist;
+        scale = 1 + ratio * ((MAX_SIZE - BASE_SIZE) / BASE_SIZE);
+      }
+    }
+  }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-7 mac-menubar-glass flex items-center justify-between px-4 text-foreground/90 text-[13px] font-medium">
-      <div className="flex items-center gap-4">
-        <Apple size={14} className="opacity-90" />
-        <span className="font-semibold">Terminal</span>
-        {leftMenus.map((menu) => (
-          <button
-            key={menu}
-            className="opacity-70 hover:opacity-100 transition-opacity duration-200 cursor-default"
-          >
-            {menu}
-          </button>
-        ))}
+    <motion.div
+      className="flex flex-col items-center relative group cursor-default"
+      ref={(el) => {
+        if (itemRefs.current) itemRefs.current[index] = el;
+      }}
+      onClick={onClick}
+      whileTap={{ scale: 0.85 }}
+    >
+      <motion.div
+        className="rounded-[12px] overflow-hidden"
+        style={{ width: BASE_SIZE, height: BASE_SIZE }}
+        animate={{ scale }}
+        transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.5 }}
+      >
+        <img
+          src={icon}
+          alt={label}
+          className="w-full h-full object-cover pointer-events-none"
+          draggable={false}
+        />
+      </motion.div>
+
+      {/* Tooltip */}
+      <div className="absolute -top-9 px-2.5 py-1 rounded-md bg-secondary/90 backdrop-blur-md text-foreground text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10">
+        {label}
       </div>
-      <div className="flex items-center gap-3">
-        <Wifi size={14} className="opacity-80" />
-        <Battery size={14} className="opacity-80" />
-        <span className="opacity-80">
-          {formattedDate} {formattedTime}
-        </span>
-        <Search size={14} className="opacity-80" />
-        <SlidersHorizontal size={14} className="opacity-80" />
+
+      {/* Active dot */}
+      <div className="h-1.5 flex items-center justify-center">
+        {isActive && (
+          <motion.div
+            className="w-1 h-1 rounded-full bg-foreground/70"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+          />
+        )}
       </div>
-    </header>
+    </motion.div>
   );
 };
 
-export default MenuBar;
+export default DockItem;
