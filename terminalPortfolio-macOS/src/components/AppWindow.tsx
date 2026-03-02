@@ -26,9 +26,10 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
       };
 
       const handleMove = (ev: MouseEvent) => {
+        const minY = 28;
         setPosition({
           x: ev.clientX - dragOffset.current.x,
-          y: ev.clientY - dragOffset.current.y,
+          y: Math.max(minY, ev.clientY - dragOffset.current.y),
         });
       };
       const handleUp = () => {
@@ -45,7 +46,7 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
   return (
     <motion.div
       className="mac-window-surface absolute"
-      style={{ left: position.x, top: position.y, width: 1000, height: 700, zIndex }}
+      style={{ left: position.x, top: position.y, width: 1000, height: 630, zIndex }}
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}

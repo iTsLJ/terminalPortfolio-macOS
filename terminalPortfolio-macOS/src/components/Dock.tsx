@@ -34,7 +34,7 @@ const Dock = ({ activeApps, onAppClick }: DockProps) => {
 
   return (
     <div
-      className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 mac-dock-glass px-2 pb-1.5 pt-1.5 flex items-end gap-1"
+      className="fixed bottom-3 left-1/2 -translate-x-1/2 z-[9999] mac-dock-glass px-2 pb-1.5 pt-1.5 flex items-end gap-1"
       onMouseMove={(e) => setMouseX(e.clientX)}
       onMouseLeave={() => setMouseX(null)}
     >
