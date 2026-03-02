@@ -45,14 +45,7 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
   return (
     <motion.div
       className="mac-window-surface absolute"
-      style={{
-        left: position.x,
-        top: position.y,
-        width: 1000,
-        height: 635,
-        height: 700,
-        zIndex,
-      }}
+      style={{ left: position.x, top: position.y, width: 1000, height: 700, zIndex }}
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}
@@ -86,27 +79,20 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
       </div>
 
       {/* Content */}
-<div className="h-[calc(100%-2.5rem)] overflow-hidden">
-  {app.id === "terminal" ? (
-    <TerminalApp />
-  ) : (
-    <div className="p-4 h-full flex items-center justify-center">
-      <div className="text-muted-foreground text-sm text-center">
-        <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
-        <p className="opacity-50">{app.label} — Ready</p>
-      </div>
-    </div>
-  )}
-</div>
-      <div className="p-4 h-[calc(100%-2.5rem)] flex items-center justify-center">
-        <div className="text-muted-foreground text-sm text-center">
-          <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
-          <p className="opacity-50">{app.label} — Ready</p>
-        </div>
+      <div className="h-[calc(100%-2.5rem)] overflow-hidden">
+        {app.id === "terminal" ? (
+          <TerminalApp />
+        ) : (
+          <div className="p-4 h-full flex items-center justify-center">
+            <div className="text-muted-foreground text-sm text-center">
+              <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
+              <p className="opacity-50">{app.label} — Ready</p>
+            </div>
+          </div>
+        )}
       </div>
     </motion.div>
   );
 };
 
 export default AppWindow;
- 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -68,12 +68,12 @@
   }
 
   body {
-    @apply bg-background text-foreground overflow-hidden;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    cursor: default;
-    user-select: none;
-  }
+  @apply bg-background text-foreground overflow-hidden;
+  font-family: 'JetBrains Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+  user-select: none;
+}
 }
 
 @layer components {
