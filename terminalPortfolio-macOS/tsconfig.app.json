@@ -27,6 +27,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "react-terminal-ui": ["./src/shims/react-terminal-ui.tsx"]
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"]
