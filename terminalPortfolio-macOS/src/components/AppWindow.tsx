@@ -85,6 +85,7 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
       </div>
 
       {/* Content */}
+<<<<<<< Updated upstream
       <div className="h-[calc(100%-2.5rem)]">
         {app.id === "terminal" ? (
           <TerminalApp />
@@ -96,7 +97,21 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
             </div>
           </div>
         )}
+=======
+      {/* Content */}
+<div className="h-[calc(100%-2.5rem)] overflow-hidden">
+  {app.id === "terminal" ? (
+    <TerminalApp />
+  ) : (
+    <div className="p-4 h-full flex items-center justify-center">
+      <div className="text-muted-foreground text-sm text-center">
+        <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
+        <p className="opacity-50">{app.label} — Ready</p>
+>>>>>>> Stashed changes
       </div>
+    </div>
+  )}
+</div>
     </motion.div>
   );
 };
