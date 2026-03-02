@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { X, Minus, Maximize2 } from "lucide-react";
 import { AppInfo } from "./Dock";
+import TerminalApp from "./TerminalApp";
 
 interface WindowProps {
   app: AppInfo;
@@ -48,6 +49,7 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
         left: position.x,
         top: position.y,
         width: 1000,
+        height: 635,
         height: 700,
         zIndex,
       }}
@@ -84,6 +86,18 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
       </div>
 
       {/* Content */}
+<div className="h-[calc(100%-2.5rem)] overflow-hidden">
+  {app.id === "terminal" ? (
+    <TerminalApp />
+  ) : (
+    <div className="p-4 h-full flex items-center justify-center">
+      <div className="text-muted-foreground text-sm text-center">
+        <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
+        <p className="opacity-50">{app.label} — Ready</p>
+      </div>
+    </div>
+  )}
+</div>
       <div className="p-4 h-[calc(100%-2.5rem)] flex items-center justify-center">
         <div className="text-muted-foreground text-sm text-center">
           <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />

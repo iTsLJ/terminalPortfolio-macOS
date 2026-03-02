@@ -22,6 +22,11 @@
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": false,
 
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "react-terminal-ui": ["./src/shims/react-terminal-ui.tsx"]
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
