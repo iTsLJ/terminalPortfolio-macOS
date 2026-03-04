@@ -16,27 +16,54 @@ interface HistoryEntry {
   text: string;
 }
 
-const HELP_TEXT = `Available commands:
-  help          Show this help message
-  about         About me
-  certificates  List certificates
-  contact       Contact information
-  experience    Work experience
-  clear         Clear terminal`;
+const HELP_TEXT = `Available commands / Comandos disponíveis:
+  help / ajuda                    Show this help message
+  about / sobre                   About me
+  certificates / certificados     List certificates
+  contact / contato               Contact information
+  experience / experiencia        Work experience
+  clear                           Clear terminal`;
+
+const ABOUT_TEXT = `Sou Caio Resende, estudante de Engenharia de Software na PUC Minas e arquiteto de soluções AWS na ForceOne. Atuo no desenvolvimento de soluções em nuvem com foco em arquitetura eficiente, otimização de custos e boas práticas de infraestrutura. Sou entusiasta de idiomas, fluente em português e inglês, com espanhol avançado e alemão em nível intermediário. Busco sempre aprender novas tecnologias e trazer inovações para o ambiente de trabalho.
+
+I am Caio Resende, a Software Engineering student at PUC Minas and an AWS Solutions Architect at ForceOne. I work on developing cloud solutions with a focus on efficient architecture, cost optimization, and infrastructure best practices. I am an enthusiast of languages, fluent in Portuguese and English, with advanced Spanish and intermediate German. I am always looking to learn new technologies and bring innovations to the work environment.`;
+
+const CERTIFICATES_TEXT = `→ AWS Certified Cloud Practitioner
+→ AWS Certified AI Practitioner
+→ AWS Certified Solutions Architect - Associate
+→ AWS Certified CloudOps Engineer - Associate`;
+
+const CONTATO_TEXT = `Email:    caiosouzamresende@gmail.com
+GitHub:   github.com/CaioSResende
+LinkedIn: linkedin.com/in/caiosouzaderesende`;
+
+const EXPERIENCE_TEXT = `→ Intern at Educat (jun 2023 - jan 2025)
+  → Technical support at SESI implementation project (jun 2023 - jun 2024)
+  → Intern as a DevOps, working with OnPremises and AWS Cloud tools (jun 2024 - jan 2025)
+
+→ Intern at ForceOne (jan 2025 - present)
+  → Intern as a AWS Cloud Architect`;
 
 const COMMANDS: Record<string, string> = {
-  help: HELP_TEXT,
-  about: "Sou Caio Resende, estudante de Engenharia de Software na PUC Minas e arquiteto de soluções AWS na ForceOne. Atuo no desenvolvimento de soluções em nuvem com foco em arquitetura eficiente, otimização de custos e boas práticas de infraestrutura. Sou entusiasta de idiomas, fluente em português e inglês, com espanhol avançado e alemão em nível intermediário. Busco sempre aprender novas tecnologias e trazer inovações para o ambiente de trabalho.\n\nI am Caio Resende, a Software Engineering student at PUC Minas and an AWS Solutions Architect at ForceOne. I work on developing cloud solutions with a focus on efficient architecture, cost optimization, and infrastructure best practices. I am an enthusiast of languages, fluent in Portuguese and English, with advanced Spanish and intermediate German. I am always looking to learn new technologies and bring innovations to the work environment.",
-  certificates: "→ AWS Certified Cloud Practitioner\n→ AWS Certified AI Practitioner\n→ AWS Certified Solutions Architect - Associate\n→ AWS Certified CloudOps Engineer - Associate",
-  contact: "Email:    caiosouzamresende@gmail.com\nGitHub:   github.com/CaioSResende\nLinkedIn: linkedin.com/in/caiosouzaderesende",
-  experience: "→Intern at Educat (jun 2023 - jan 2025)\n  →Technical support at SESI implementation project (jun 2023 - jun 2024)\n  →Intern as a DevOps, working with OnPremises and AWS Cloud tools (jun 2024 - jan 2025)\n\n→ Intern at ForceOne (jan 2025 - present)\n  → Intern as a AWS Cloud Architect",
-  clear: "__CLEAR__",
+  help:         HELP_TEXT,
+  ajuda:        HELP_TEXT,
+  about:        ABOUT_TEXT,
+  sobre:        ABOUT_TEXT,
+  certificates: CERTIFICATES_TEXT,
+  certificados: CERTIFICATES_TEXT,
+  certs:        CERTIFICATES_TEXT,
+  contact:      CONTATO_TEXT,
+  contato:      CONTATO_TEXT,
+  experience:   EXPERIENCE_TEXT,
+  experiencia:  EXPERIENCE_TEXT,
+  clear:        "__CLEAR__",
 };
 
 interface SidebarItem {
   label: string;
   icon: React.ReactNode;
   command?: string;
+  openApp?: string;
 }
 
 interface SidebarGroup {
@@ -44,12 +71,16 @@ interface SidebarGroup {
   items: SidebarItem[];
 }
 
-const TerminalApp = () => {
+interface TerminalAppProps {
+  onOpenApp: (id: string) => void;
+}
+
+const TerminalApp = ({ onOpenApp }: TerminalAppProps) => {
   const [activeItem, setActiveItem] = useState("Portfolio_Root");
   const [history, setHistory] = useState<HistoryEntry[]>([
     {
       type: "output",
-      text: `Welcome to Dev_OS v2.4.0 (Darwin Kernel Version 23.0.0).\nType help to see available commands or click files in the sidebar.`,
+      text: `Welcome to Dev_OS v2.4.0 (Darwin Kernel Version 23.0.0).\nType help to see available commands or click files in the sidebar.\nDigite ajuda para ver os comandos disponíveis ou clique nos arquivos na barra lateral.`,
     },
   ]);
   const [input, setInput] = useState("");
@@ -62,18 +93,18 @@ const TerminalApp = () => {
     {
       section: "FAVORITES",
       items: [
-        { label: "Portfolio_Root", icon: <Folder size={13} className="text-[#4fd1c5]" /> },
-        { label: "Downloads", icon: <Folder size={13} className="text-[#4fd1c5]" /> },
-        { label: "iCloud Drive", icon: <Cloud size={13} className="text-[#4fd1c5]" /> },
+        { label: "Portfolio_Root", icon: <Folder   size={13} className="text-[#4fd1c5]" /> },
+        { label: "Downloads",      icon: <Folder   size={13} className="text-[#4fd1c5]" /> },
+        { label: "iCloud Drive",   icon: <HardDrive size={13} className="text-[#4fd1c5]" /> },
       ],
     },
     {
       section: "PROJECT FILES",
       items: [
-        { label: "readme.md",   icon: <FileText  size={13} className="text-[#68d391]" />, command: "about"    },
-        { label: "certs.sh", icon: <Code      size={13} className="text-[#fbd38d]" />, command: "certificates" },
+        { label: "readme.md",       icon: <FileText  size={13} className="text-[#68d391]" />, command: "about"        },
+        { label: "certs.sh",        icon: <Code      size={13} className="text-[#fbd38d]" />, command: "certificates" },
         { label: "experience.json", icon: <HardDrive size={13} className="text-[#76e4f7]" />, command: "experience"   },
-        { label: "contact.git", icon: <GitBranch size={13} className="text-[#fc8181]" />, command: "contact"  },
+        { label: "contact.git",     icon: <GitBranch size={13} className="text-[#fc8181]" />, command: "contact", openApp: "contacts" },
       ],
     },
   ];
@@ -89,13 +120,9 @@ const TerminalApp = () => {
     setCommandHistory((prev) => [trimmed, ...prev]);
     setHistoryIndex(-1);
 
-    if (trimmed === "clear") {
-      setHistory([]);
-      return;
-    }
+    if (trimmed === "clear") { setHistory([]); return; }
 
     const newEntries: HistoryEntry[] = [{ type: "command", text: trimmed }];
-
     const response = COMMANDS[trimmed];
     if (response) {
       newEntries.push({ type: "output", text: response });
@@ -105,43 +132,38 @@ const TerminalApp = () => {
         text: `command not found: ${trimmed}\nType 'help' for available commands.`,
       });
     }
-
     setHistory((prev) => [...prev, ...newEntries]);
   };
 
   const handleSidebarClick = (item: SidebarItem) => {
     setActiveItem(item.label);
-    if (item.command) {
-      handleCommand(item.command);
-      inputRef.current?.focus();
-    }
+    if (item.command) handleCommand(item.command);
+    if (item.openApp) onOpenApp(item.openApp);
+    inputRef.current?.focus();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleCommand(input);
-      setInput("");
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      const next = Math.min(historyIndex + 1, commandHistory.length - 1);
-      setHistoryIndex(next);
-      setInput(commandHistory[next] ?? "");
-    } else if (e.key === "ArrowDown") {
-      e.preventDefault();
-      const next = Math.max(historyIndex - 1, -1);
-      setHistoryIndex(next);
-      setInput(next === -1 ? "" : commandHistory[next]);
-    }
-  };
-
+  if (e.key === "Enter") {
+    handleCommand(input);
+    setInput("");
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    const next = Math.min(historyIndex + 1, commandHistory.length - 1);
+    setHistoryIndex(next);
+    setInput(commandHistory[next] ?? "");
+  } else if (e.key === "ArrowDown") {
+    e.preventDefault();
+    const next = Math.max(historyIndex - 1, -1);
+    setHistoryIndex(next);
+    setInput(next === -1 ? "" : commandHistory[next]);
+  }
+};
   return (
     <>
-      {/* Load JetBrains Mono from Google Fonts */}
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
       />
-
       <div
         className="flex h-full w-full overflow-hidden text-sm"
         style={{ background: "#0d1117", fontFamily: JETBRAINS }}
@@ -165,9 +187,9 @@ const TerminalApp = () => {
                     className="w-full flex items-center gap-2 px-2 py-1 rounded text-left transition-all duration-150"
                     style={{
                       background: isActive ? "rgba(79,209,197,0.1)" : "transparent",
-                      color: isActive ? "#4fd1c5" : "#718096",
-                      fontSize: "14px",
-                      cursor: item.command ? "pointer" : "default",
+                      color:      isActive ? "#4fd1c5" : "#718096",
+                      fontSize:   "14px",
+                      cursor:     item.command ? "pointer" : "default",
                     }}
                     onMouseEnter={(e) => {
                       if (!isActive) (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
@@ -202,7 +224,7 @@ const TerminalApp = () => {
             <pre
               className="text-xs leading-tight mb-3 select-none"
               style={{
-                color: "#38b2ac",
+                color:      "#38b2ac",
                 textShadow: "0 0 10px rgba(56,178,172,0.5)",
                 fontFamily: JETBRAINS,
               }}
