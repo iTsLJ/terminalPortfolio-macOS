@@ -8,10 +8,9 @@ export interface Contact {
 }
 
 export const userProfile = {
-  name: 'LUCAS',
-  title: 'Senior Software Engineer',
-  subtitle: 'BUILDING FOR THE FUTURE',
-  avatar: '/public/avatar.png',
+  name: 'CAIO RESENDE',
+  title: 'Junior Cloud Architect | Software Engineer Student',
+  avatar: '/avatar.png',
 };
 
 export const userContacts: Contact[] = [
@@ -19,16 +18,16 @@ export const userContacts: Contact[] = [
     id: 'email',
     type: 'Email',
     title: 'Email',
-    description: 'user@example.com',
-    url: 'mailto:user@example.com',
+    description: 'caiosouzamresende@gmail.com',
+    url: 'mailto:caiosouzamresende@gmail.com',
     icon: '✉️',
   },
   {
     id: 'github',
     type: 'GitHub',
     title: 'GitHub',
-    description: '@userdev',
-    url: 'https://github.com/userdev',
+    description: '@CaioSResende',
+    url: 'https://github.com/CaioSResende',
     icon: '🐙',
   },
   {
@@ -36,15 +35,23 @@ export const userContacts: Contact[] = [
     type: 'LinkedIn',
     title: 'LinkedIn',
     description: 'Connect professionally',
-    url: 'https://linkedin.com/in/userdev',
+    url: 'https://linkedin.com/in/caiosouzaderesende',
     icon: '💼',
+  },
+  {
+    id: 'credly',
+    type: 'Credly',
+    title: 'Credly',
+    description: 'View my certifications',
+    url: 'https://www.credly.com/users/caiosresende',
+    icon: '📜',
   },
   {
     id: 'whatsapp',
     type: 'WhatsApp',
     title: 'WhatsApp',
-    description: '+1 (555) 012-3456',
-    url: 'https://wa.me/15550123456',
+    description: '+55 (31) 99752-9293',
+    url: 'https://wa.me/5531997529293',
     icon: '💬',
   },
 ];

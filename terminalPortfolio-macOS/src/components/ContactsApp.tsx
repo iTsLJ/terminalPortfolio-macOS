@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { userProfile, userContacts } from '@/data/userContacts';
-import { Mail, Github, Linkedin, MessageCircle } from 'lucide-react';
+import { Mail, Github, Linkedin, Award, MessageCircle } from 'lucide-react';
 
 interface Tab {
   id: string;
@@ -18,11 +18,11 @@ const iconMap: Record<string, React.ReactNode> = {
   github: <Github className="w-6 h-6" />,
   linkedin: <Linkedin className="w-6 h-6" />,
   whatsapp: <MessageCircle className="w-6 h-6" />,
+  credly: <Award className="w-6 h-6" />
 };
 
 export default function ContactsApp() {
   const [activeTab, setActiveTab] = useState('info');
-  const [isHoveringScroll, setIsHoveringScroll] = useState(false);
 
   const handleContactClick = (url: string) => {
     window.open(url, '_blank');
@@ -30,15 +30,10 @@ export default function ContactsApp() {
 
   return (
     <div className="w-full h-full bg-gradient-to-b from-gray-900 to-gray-800 rounded-lg overflow-hidden flex flex-col">
-      {/* Content Area with Custom Scrollbar */}
+      {/* Content Area */}
       <div
-        className="flex-1 overflow-y-auto px-8 py-8 scrollbar-hide hover:scrollbar-show"
-        onMouseEnter={() => setIsHoveringScroll(true)}
-        onMouseLeave={() => setIsHoveringScroll(false)}
-        style={{
-          scrollbarWidth: isHoveringScroll ? 'thin' : 'none',
-          scrollbarColor: '#666 transparent',
-        }}
+        className="flex-1 overflow-y-auto px-8 py-8"
+        style={{ scrollbarWidth: 'thin', scrollbarColor: '#666 transparent' }}
       >
         {/* Profile Section */}
         <div className="flex flex-col items-center text-center mb-8">
@@ -47,15 +42,14 @@ export default function ContactsApp() {
             <img
               src={userProfile.avatar}
               alt={userProfile.name}
-              className="w-24 h-24 rounded-full border-4 border-green-500 shadow-lg"
+              className="w-24 h-24 rounded-full border-4 border-green-500 shadow-lg object-cover"
             />
             <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900"></div>
           </div>
 
           {/* Name and Title */}
           <h1 className="text-2xl font-bold text-white mb-2">{userProfile.name}</h1>
-          <p className="text-gray-400 text-sm mb-4">{userProfile.title}</p>
-          <p className="text-gray-500 text-xs tracking-widest mb-8">{userProfile.subtitle}</p>
+          <p className="text-gray-400 text-sm mb-8">{userProfile.title}</p>
 
           {/* Contact Cards */}
           <div className="w-full max-w-sm space-y-3">
@@ -109,30 +103,6 @@ export default function ContactsApp() {
           ))}
         </div>
       </div>
-
-      {/* Custom Scrollbar Styles */}
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .hover\:scrollbar-show:hover::-webkit-scrollbar {
-          width: 10px;
-        }
-        .hover\:scrollbar-show:hover::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .hover\:scrollbar-show:hover::-webkit-scrollbar-thumb {
-          background: rgba(100, 100, 100, 0.6);
-          border-radius: 5px;
-        }
-        .hover\:scrollbar-show:hover::-webkit-scrollbar-thumb:hover {
-          background: rgba(120, 120, 120, 0.8);
-        }
-      `}</style>
     </div>
   );
 }

@@ -18,20 +18,18 @@ interface HistoryEntry {
 
 const HELP_TEXT = `Available commands:
   help          Show this help message
-  about         About this portfolio
-  projects      List projects
-  skills        Show skills
+  about         About me
+  certificates  List certificates
   contact       Contact information
-  clear         Clear terminal
-  whoami        Display current user`;
+  experience    Work experience
+  clear         Clear terminal`;
 
 const COMMANDS: Record<string, string> = {
   help: HELP_TEXT,
-  about: "Full-stack developer passionate about clean code and beautiful interfaces.\nBuilding things that matter, one commit at a time.",
-  projects: "→ terminalPortfolio-macOS  — This very portfolio!\n→ devOS                    — Custom macOS-like web OS\n→ reactFlow                — Visual workflow builder",
-  skills: "Languages:   TypeScript, JavaScript, Python\nFrameworks:  React, Next.js, Node.js\nTools:       Git, Docker, Vite, Tailwind",
-  contact: "Email:    user@dev.os\nGitHub:   github.com/iTsLJ\nLinkedIn: linkedin.com/in/user",
-  whoami: "user — Dev_OS v2.4.0 (Darwin Kernel Version 23.0.0)",
+  about: "Sou Caio Resende, estudante de Engenharia de Software na PUC Minas e arquiteto de soluções AWS na ForceOne. Atuo no desenvolvimento de soluções em nuvem com foco em arquitetura eficiente, otimização de custos e boas práticas de infraestrutura. Sou entusiasta de idiomas, fluente em português e inglês, com espanhol avançado e alemão em nível intermediário. Busco sempre aprender novas tecnologias e trazer inovações para o ambiente de trabalho.\n\nI am Caio Resende, a Software Engineering student at PUC Minas and an AWS Solutions Architect at ForceOne. I work on developing cloud solutions with a focus on efficient architecture, cost optimization, and infrastructure best practices. I am an enthusiast of languages, fluent in Portuguese and English, with advanced Spanish and intermediate German. I am always looking to learn new technologies and bring innovations to the work environment.",
+  certificates: "→ AWS Certified Cloud Practitioner\n→ AWS Certified AI Practitioner\n→ AWS Certified Solutions Architect - Associate\n→ AWS Certified CloudOps Engineer - Associate",
+  contact: "Email:    caiosouzamresende@gmail.com\nGitHub:   github.com/CaioSResende\nLinkedIn: linkedin.com/in/caiosouzaderesende",
+  experience: "→Intern at Educat (jun 2023 - jan 2025)\n  →Technical support at SESI implementation project (jun 2023 - jun 2024)\n  →Intern as a DevOps, working with OnPremises and AWS Cloud tools (jun 2024 - jan 2025)\n\n→ Intern at ForceOne (jan 2025 - present)\n  → Intern as a AWS Cloud Architect",
   clear: "__CLEAR__",
 };
 
@@ -73,8 +71,8 @@ const TerminalApp = () => {
       section: "PROJECT FILES",
       items: [
         { label: "readme.md",   icon: <FileText  size={13} className="text-[#68d391]" />, command: "about"    },
-        { label: "projects.sh", icon: <Code      size={13} className="text-[#fbd38d]" />, command: "projects" },
-        { label: "skills.json", icon: <HardDrive size={13} className="text-[#76e4f7]" />, command: "skills"   },
+        { label: "certs.sh", icon: <Code      size={13} className="text-[#fbd38d]" />, command: "certificates" },
+        { label: "experience.json", icon: <HardDrive size={13} className="text-[#76e4f7]" />, command: "experience"   },
         { label: "contact.git", icon: <GitBranch size={13} className="text-[#fc8181]" />, command: "contact"  },
       ],
     },
