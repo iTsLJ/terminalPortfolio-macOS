@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Folder, FileText, Code, GitBranch, Cloud, HardDrive } from "lucide-react";
+import { Folder, FileText, Code, GitBranch, HardDrive } from "lucide-react";
 
 const ASCII_ART = `
  ██╗   ██╗███████╗███████╗██████╗ 
@@ -16,47 +16,61 @@ interface HistoryEntry {
   text: string;
 }
 
-const HELP_TEXT = `Available commands / Comandos disponíveis:
-  help / ajuda                    Show this help message
-  about / sobre                   About me
-  certificates / certificados     List certificates
-  contact / contato               Contact information
-  experience / experiencia        Work experience
-  clear                           Clear terminal`;
+type Lang = "en" | "pt";
 
-const ABOUT_TEXT = `Sou Caio Resende, estudante de Engenharia de Software na PUC Minas e arquiteto de soluções AWS na ForceOne. Atuo no desenvolvimento de soluções em nuvem com foco em arquitetura eficiente, otimização de custos e boas práticas de infraestrutura. Sou entusiasta de idiomas, fluente em português e inglês, com espanhol avançado e alemão em nível intermediário. Busco sempre aprender novas tecnologias e trazer inovações para o ambiente de trabalho.
-
-I am Caio Resende, a Software Engineering student at PUC Minas and an AWS Solutions Architect at ForceOne. I work on developing cloud solutions with a focus on efficient architecture, cost optimization, and infrastructure best practices. I am an enthusiast of languages, fluent in Portuguese and English, with advanced Spanish and intermediate German. I am always looking to learn new technologies and bring innovations to the work environment.`;
-
-const CERTIFICATES_TEXT = `→ AWS Certified Cloud Practitioner
+const CONTENT = {
+  en: {
+    welcome:      `Welcome to Dev_OS v2.4.0 (Darwin Kernel Version 23.0.0).\nType help to see available commands or click files in the sidebar.`,
+    notFound:     (cmd: string) => `command not found: ${cmd}\nType 'help' for available commands.`,
+    help: `Available commands:
+  help          Show this help message
+  about         About me
+  certificates  List certificates
+  contact       Contact information
+  experience    Work experience
+  clear         Clear terminal`,
+    about: `I am Caio Resende, a Software Engineering student at PUC Minas and an AWS Solutions Architect at ForceOne. I work on developing cloud solutions with a focus on efficient architecture, cost optimization, and infrastructure best practices. I am an enthusiast of languages, fluent in Portuguese and English, with advanced Spanish and intermediate German. I am always looking to learn new technologies and bring innovations to the work environment.`,
+    certificates: `→ AWS Certified Cloud Practitioner
 → AWS Certified AI Practitioner
 → AWS Certified Solutions Architect - Associate
-→ AWS Certified CloudOps Engineer - Associate`;
-
-const CONTATO_TEXT = `Email:    caiosouzamresende@gmail.com
+→ AWS Certified CloudOps Engineer - Associate`,
+    contact: `Email:    caiosouzamresende@gmail.com
 GitHub:   github.com/CaioSResende
-LinkedIn: linkedin.com/in/caiosouzaderesende`;
-
-const EXPERIENCE_TEXT = `→ Intern at Educat (jun 2023 - jan 2025)
+LinkedIn: linkedin.com/in/caiosouzaderesende`,
+    experience: `→ Intern at Educat (jun 2023 - jan 2025)
   → Technical support at SESI implementation project (jun 2023 - jun 2024)
   → Intern as a DevOps, working with OnPremises and AWS Cloud tools (jun 2024 - jan 2025)
 
 → Intern at ForceOne (jan 2025 - present)
-  → Intern as a AWS Cloud Architect`;
+  → Intern as a AWS Cloud Architect`,
+    commands: ["help", "about", "certificates", "contact", "experience", "clear"],
+  },
+  pt: {
+    welcome:      `Bem-vindo ao Dev_OS v2.4.0 (Darwin Kernel Version 23.0.0).\nDigite ajuda para ver os comandos disponíveis ou clique nos arquivos na barra lateral.`,
+    notFound:     (cmd: string) => `comando não encontrado: ${cmd}\nDigite 'ajuda' para ver os comandos disponíveis.`,
+    help: `Comandos disponíveis:
+  ajuda         Mostrar esta mensagem de ajuda
+  sobre         Sobre mim
+  certificados  Listar certificados
+  contato       Informações de contato
+  experiencia   Experiência profissional
+  clear         Limpar terminal`,
+    about: `Sou Caio Resende, estudante de Engenharia de Software na PUC Minas e arquiteto de soluções AWS na ForceOne. Atuo no desenvolvimento de soluções em nuvem com foco em arquitetura eficiente, otimização de custos e boas práticas de infraestrutura. Sou entusiasta de idiomas, fluente em português e inglês, com espanhol avançado e alemão em nível intermediário. Busco sempre aprender novas tecnologias e trazer inovações para o ambiente de trabalho.`,
+    certificates: `→ AWS Certified Cloud Practitioner
+→ AWS Certified AI Practitioner
+→ AWS Certified Solutions Architect - Associate
+→ AWS Certified CloudOps Engineer - Associate`,
+    contact: `Email:    caiosouzamresende@gmail.com
+GitHub:   github.com/CaioSResende
+LinkedIn: linkedin.com/in/caiosouzaderesende`,
+    experience: `→ Estágio na Educat (jun 2023 - jan 2025)
+  → Suporte técnico no projeto de implantação SESI (jun 2023 - jun 2024)
+  → Estágio como DevOps, trabalhando com ferramentas OnPremises e AWS Cloud (jun 2024 - jan 2025)
 
-const COMMANDS: Record<string, string> = {
-  help:         HELP_TEXT,
-  ajuda:        HELP_TEXT,
-  about:        ABOUT_TEXT,
-  sobre:        ABOUT_TEXT,
-  certificates: CERTIFICATES_TEXT,
-  certificados: CERTIFICATES_TEXT,
-  certs:        CERTIFICATES_TEXT,
-  contact:      CONTATO_TEXT,
-  contato:      CONTATO_TEXT,
-  experience:   EXPERIENCE_TEXT,
-  experiencia:  EXPERIENCE_TEXT,
-  clear:        "__CLEAR__",
+→ Estágio na ForceOne (jan 2025 - presente)
+  → Estágio como Arquiteto de Soluções AWS`,
+    commands: ["ajuda", "sobre", "certificados", "contato", "experiencia", "clear"],
+  },
 };
 
 interface SidebarItem {
@@ -76,12 +90,10 @@ interface TerminalAppProps {
 }
 
 const TerminalApp = ({ onOpenApp }: TerminalAppProps) => {
+  const [lang, setLang] = useState<Lang>("en");
   const [activeItem, setActiveItem] = useState("Portfolio_Root");
   const [history, setHistory] = useState<HistoryEntry[]>([
-    {
-      type: "output",
-      text: `Welcome to Dev_OS v2.4.0 (Darwin Kernel Version 23.0.0).\nType help to see available commands or click files in the sidebar.\nDigite ajuda para ver os comandos disponíveis ou clique nos arquivos na barra lateral.`,
-    },
+    { type: "output", text: CONTENT.en.welcome },
   ]);
   const [input, setInput] = useState("");
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
@@ -93,18 +105,18 @@ const TerminalApp = ({ onOpenApp }: TerminalAppProps) => {
     {
       section: "FAVORITES",
       items: [
-        { label: "Portfolio_Root", icon: <Folder   size={13} className="text-[#4fd1c5]" /> },
-        { label: "Downloads",      icon: <Folder   size={13} className="text-[#4fd1c5]" /> },
+        { label: "Portfolio_Root", icon: <Folder    size={13} className="text-[#4fd1c5]" /> },
+        { label: "Downloads",      icon: <Folder    size={13} className="text-[#4fd1c5]" /> },
         { label: "iCloud Drive",   icon: <HardDrive size={13} className="text-[#4fd1c5]" /> },
       ],
     },
     {
       section: "PROJECT FILES",
       items: [
-        { label: "readme.md",       icon: <FileText  size={13} className="text-[#68d391]" />, command: "about"        },
-        { label: "certs.sh",        icon: <Code      size={13} className="text-[#fbd38d]" />, command: "certificates" },
-        { label: "experience.json", icon: <HardDrive size={13} className="text-[#76e4f7]" />, command: "experience"   },
-        { label: "contact.git",     icon: <GitBranch size={13} className="text-[#fc8181]" />, command: "contact", openApp: "contacts" },
+        { label: "readme.md",       icon: <FileText  size={13} className="text-[#68d391]" />, command: lang === "en" ? "about"        : "sobre"        },
+        { label: "certs.sh",        icon: <Code      size={13} className="text-[#fbd38d]" />, command: lang === "en" ? "certificates" : "certificados" },
+        { label: "experience.json", icon: <HardDrive size={13} className="text-[#76e4f7]" />, command: lang === "en" ? "experience"   : "experiencia"  },
+        { label: "contact.git",     icon: <GitBranch size={13} className="text-[#fc8181]" />, command: lang === "en" ? "contact"      : "contato", openApp: "contacts" },
       ],
     },
   ];
@@ -112,6 +124,25 @@ const TerminalApp = ({ onOpenApp }: TerminalAppProps) => {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
+
+  const getCommands = (l: Lang): Record<string, string> => ({
+    help:         CONTENT[l].help,
+    ajuda:        CONTENT[l].help,
+    about:        CONTENT[l].about,
+    sobre:        CONTENT[l].about,
+    certificates: CONTENT[l].certificates,
+    certificados: CONTENT[l].certificates,
+    certs:        CONTENT[l].certificates,
+    contact:      CONTENT[l].contact,
+    contato:      CONTENT[l].contact,
+    experience:   CONTENT[l].experience,
+    experiencia:  CONTENT[l].experience,
+  });
+
+  const handleLangSwitch = (newLang: Lang) => {
+    setLang(newLang);
+    setHistory([{ type: "output", text: CONTENT[newLang].welcome }]);
+  };
 
   const handleCommand = (cmd: string) => {
     const trimmed = cmd.trim().toLowerCase();
@@ -123,14 +154,12 @@ const TerminalApp = ({ onOpenApp }: TerminalAppProps) => {
     if (trimmed === "clear") { setHistory([]); return; }
 
     const newEntries: HistoryEntry[] = [{ type: "command", text: trimmed }];
-    const response = COMMANDS[trimmed];
+    const commands = getCommands(lang);
+    const response = commands[trimmed];
     if (response) {
       newEntries.push({ type: "output", text: response });
     } else {
-      newEntries.push({
-        type: "error",
-        text: `command not found: ${trimmed}\nType 'help' for available commands.`,
-      });
+      newEntries.push({ type: "error", text: CONTENT[lang].notFound(trimmed) });
     }
     setHistory((prev) => [...prev, ...newEntries]);
   };
@@ -143,21 +172,22 @@ const TerminalApp = ({ onOpenApp }: TerminalAppProps) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  if (e.key === "Enter") {
-    handleCommand(input);
-    setInput("");
-  } else if (e.key === "ArrowUp") {
-    e.preventDefault();
-    const next = Math.min(historyIndex + 1, commandHistory.length - 1);
-    setHistoryIndex(next);
-    setInput(commandHistory[next] ?? "");
-  } else if (e.key === "ArrowDown") {
-    e.preventDefault();
-    const next = Math.max(historyIndex - 1, -1);
-    setHistoryIndex(next);
-    setInput(next === -1 ? "" : commandHistory[next]);
-  }
-};
+    if (e.key === "Enter") {
+      handleCommand(input);
+      setInput("");
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const next = Math.min(historyIndex + 1, commandHistory.length - 1);
+      setHistoryIndex(next);
+      setInput(commandHistory[next] ?? "");
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = Math.max(historyIndex - 1, -1);
+      setHistoryIndex(next);
+      setInput(next === -1 ? "" : commandHistory[next]);
+    }
+  };
+
   return (
     <>
       <link
@@ -213,26 +243,44 @@ const TerminalApp = ({ onOpenApp }: TerminalAppProps) => {
           style={{ background: "#0d1117" }}
           onClick={() => inputRef.current?.focus()}
         >
-          {/* Last login bar */}
-          <div className="px-4 pt-3 pb-1 text-sm" style={{ color: "#4a5568" }}>
-            Last login: {new Date().toDateString()} on ttys001
+          {/* Top bar */}
+          <div
+            className="flex items-center justify-between px-4 pt-3 pb-1 text-sm"
+            style={{ color: "#4a5568" }}
+          >
+            <span>Last login: {new Date().toDateString()} on ttys001</span>
+
+            {/* Lang toggle */}
+            <div
+              className="flex items-center gap-1 rounded px-1 py-0.5"
+              style={{ background: "#1e2a38" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {(["en", "pt"] as Lang[]).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => handleLangSwitch(l)}
+                  className="px-2 py-0.5 rounded text-xs font-semibold transition-all"
+                  style={{
+                    background: lang === l ? "#38b2ac" : "transparent",
+                    color:      lang === l ? "#0d1117" : "#4a5568",
+                  }}
+                >
+                  {l.toUpperCase()}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Scrollable output */}
           <div className="flex-1 overflow-y-auto px-4 pb-2" style={{ scrollbarColor: "#2d3748 transparent" }}>
-            {/* ASCII Art */}
             <pre
               className="text-xs leading-tight mb-3 select-none"
-              style={{
-                color:      "#38b2ac",
-                textShadow: "0 0 10px rgba(56,178,172,0.5)",
-                fontFamily: JETBRAINS,
-              }}
+              style={{ color: "#38b2ac", textShadow: "0 0 10px rgba(56,178,172,0.5)", fontFamily: JETBRAINS }}
             >
               {ASCII_ART}
             </pre>
 
-            {/* History */}
             {history.map((entry, i) => (
               <div key={i} className="mb-1">
                 {entry.type === "command" && (
@@ -253,7 +301,6 @@ const TerminalApp = ({ onOpenApp }: TerminalAppProps) => {
                 )}
               </div>
             ))}
-
             <div ref={bottomRef} />
           </div>
 
