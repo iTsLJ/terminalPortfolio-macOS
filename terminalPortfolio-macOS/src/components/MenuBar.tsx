@@ -42,7 +42,7 @@ const leftMenus = [
           </button>
         ))}
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <Wifi size={14} className="opacity-80" />
         <Battery size={14} className="opacity-80" />
         <span className="opacity-80">
@@ -50,16 +50,15 @@ const leftMenus = [
         </span>
         <Search size={14} className="opacity-80" />
         <SlidersHorizontal size={14} className="opacity-80" />
+        <button
+          onClick={() =>
+            i18n.changeLanguage(i18n.language === "en" ? "pt" : "en")
+          }
+          className="opacity-80 hover:opacity-100"
+        >
+          {i18n.language === "en" ? "🇧🇷 PT" : "🇺🇸 EN"}
+        </button>
       </div>
-
-      <button
-        onClick={() =>
-          i18n.changeLanguage(i18n.language === "en" ? "pt" : "en")
-        }
-        className="opacity-80 hover:opacity-100"
-      >
-        {i18n.language === "en" ? "🇧🇷 PT" : "🇺🇸 EN"}
-      </button>
     </header>
   );
 };
