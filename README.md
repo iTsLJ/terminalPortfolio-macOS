@@ -85,11 +85,11 @@ Após abrir o projeto no navegador, utilize comandos no terminal para navegar pe
 ### Exemplos de comandos
 
 ```
-help      → mostra os comandos disponíveis
-about     → informações sobre o desenvolvedor
-projects  → lista de projetos
-skills    → habilidades técnicas
-contact   → informações de contato
+help          → mostra os comandos disponíveis
+about         → informações sobre o desenvolvedor
+certificates  → lista de certificados
+experience    → experiências de emprego
+contact       → informações de contato
 ```
 
 ---
