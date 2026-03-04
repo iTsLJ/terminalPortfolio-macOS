@@ -148,12 +148,12 @@ const TerminalApp = () => {
       >
         {/* Sidebar */}
         <div
-          className="w-44 flex-shrink-0 flex flex-col py-3 px-2 gap-1 border-r"
+          className="w-52 flex-shrink-0 flex flex-col py-3 px-2 gap-1 border-r"
           style={{ background: "#0d1117", borderColor: "#1e2a38" }}
         >
           {sidebarGroups.map((group) => (
             <div key={group.section} className="mb-2">
-              <p className="text-[10px] font-semibold tracking-widest mb-1 px-1" style={{ color: "#4a5568" }}>
+              <p className="text-[14px] font-semibold tracking-widest mb-1 px-1" style={{ color: "#4a5568" }}>
                 {group.section}
               </p>
               {group.items.map((item) => {
@@ -166,7 +166,7 @@ const TerminalApp = () => {
                     style={{
                       background: isActive ? "rgba(79,209,197,0.1)" : "transparent",
                       color: isActive ? "#4fd1c5" : "#718096",
-                      fontSize: "12px",
+                      fontSize: "14px",
                       cursor: item.command ? "pointer" : "default",
                     }}
                     onMouseEnter={(e) => {
@@ -192,7 +192,7 @@ const TerminalApp = () => {
           onClick={() => inputRef.current?.focus()}
         >
           {/* Last login bar */}
-          <div className="px-4 pt-3 pb-1 text-xs" style={{ color: "#4a5568" }}>
+          <div className="px-4 pt-3 pb-1 text-sm" style={{ color: "#4a5568" }}>
             Last login: {new Date().toDateString()} on ttys001
           </div>
 
@@ -214,18 +214,18 @@ const TerminalApp = () => {
             {history.map((entry, i) => (
               <div key={i} className="mb-1">
                 {entry.type === "command" && (
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 text-base">
                     <span style={{ color: "#48bb78" }}>user@dev_os:~$</span>
-                    <span style={{ color: "#e2e8f0" }}> {entry.text}</span>
+                    <span style={{ color: "#ffffff" }}> {entry.text}</span>
                   </div>
                 )}
                 {entry.type === "output" && (
-                  <pre className="whitespace-pre-wrap text-xs leading-relaxed" style={{ color: "#a0aec0" }}>
+                  <pre className="whitespace-pre-wrap text-sm leading-relaxed" style={{ color: "#cecbcb" }}>
                     {entry.text}
                   </pre>
                 )}
                 {entry.type === "error" && (
-                  <pre className="whitespace-pre-wrap text-xs" style={{ color: "#fc8181" }}>
+                  <pre className="whitespace-pre-wrap text-sm" style={{ color: "#fc8181" }}>
                     {entry.text}
                   </pre>
                 )}
