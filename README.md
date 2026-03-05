@@ -2,8 +2,8 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![Language](https://img.shields.io/badge/language-JavaScript-yellow)
-![Framework](https://img.shields.io/badge/framework-Vanilla%20JavaScript-orange)
+![Language](https://img.shields.io/badge/language-TypeScript-darkblue)
+![Framework](https://img.shields.io/badge/framework-React-skyblue)
 
 Um **portfólio interativo inspirado no Terminal do macOS**, onde comandos simulam uma experiência real de linha de comando para apresentar informações profissionais, projetos e contatos.
 
@@ -19,7 +19,6 @@ Interface **minimalista, moderna e voltada para desenvolvedores**, permitindo na
 * [Installation](#installation)
 * [Usage](#usage)
 * [Tech Stack](#tech-stack)
-* [Project Structure](#project-structure)
 * [Contributing](#contributing)
 * [Project Information](#project-information)
 
@@ -96,22 +95,8 @@ contact   → informações de contato
 
 # 🧰 Tech Stack
 
-* HTML5
+* React
 * CSS3
-* JavaScript (Vanilla JS)
-
----
-
-# 📁 Project Structure
-
-```
-terminalPortfolio-macOS
-│
-├── index.html
-├── style.css
-├── script.js
-└── assets/
-```
 
 ---
 
