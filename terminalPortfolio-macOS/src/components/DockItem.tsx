@@ -4,6 +4,7 @@ interface DockItemProps {
   icon: string;
   label: string;
   isActive: boolean;
+  isMinimized: boolean;
   mouseX: number | null;
   index: number;
   totalItems: number;
@@ -12,12 +13,13 @@ interface DockItemProps {
 }
 
 const BASE_SIZE = 45;
-const MAX_SIZE = 65;
+const MAX_SIZE  = 65;
 
 const DockItem = ({
   icon,
   label,
   isActive,
+  isMinimized,
   mouseX,
   index,
   onClick,
@@ -28,9 +30,9 @@ const DockItem = ({
   if (mouseX !== null && itemRefs.current) {
     const el = itemRefs.current[index];
     if (el) {
-      const rect = el.getBoundingClientRect();
+      const rect   = el.getBoundingClientRect();
       const center = rect.left + rect.width / 2;
-      const dist = Math.abs(mouseX - center);
+      const dist   = Math.abs(mouseX - center);
       const maxDist = 130;
       if (dist < maxDist) {
         const ratio = 1 - dist / maxDist;
@@ -67,11 +69,19 @@ const DockItem = ({
         {label}
       </div>
 
-      {/* Active dot */}
-      <div className="h-1.5 flex items-center justify-center">
-        {isActive && (
+      {/* Active / Minimized dot */}
+      <div className="h-1.5 flex items-center justify-center gap-0.5">
+        {isActive && !isMinimized && (
           <motion.div
             className="w-1 h-1 rounded-full bg-foreground/70"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+          />
+        )}
+        {isMinimized && (
+          <motion.div
+            className="w-1 h-1 rounded-full bg-yellow-400"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
