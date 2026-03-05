@@ -4,6 +4,7 @@ import { X, Minus, Maximize2 } from "lucide-react";
 import { AppInfo } from "./Dock";
 import TerminalApp from "./TerminalApp";
 import ContactsApp from "./ContactsApp";
+import SettingsApp from "./SettingsApp";
 
 interface WindowProps {
   app: AppInfo;
@@ -173,20 +174,22 @@ const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp }: WindowProps) =>
       </div>
 
       {/* Content */}
-      <div className="h-[calc(100%-2.5rem)] overflow-hidden">
-        {app.id === "terminal" ? (
-          <TerminalApp onOpenApp={onOpenApp} />
-        ) : app.id === "contacts" ? (
-          <ContactsApp />
-        ) : (
-          <div className="p-4 h-full flex items-center justify-center">
-            <div className="text-muted-foreground text-sm text-center">
-              <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
-              <p className="opacity-50">{app.label} — Ready</p>
-            </div>
-          </div>
-        )}
+<div className="h-[calc(100%-2.5rem)] overflow-hidden">
+  {app.id === "terminal" ? (
+    <TerminalApp onOpenApp={onOpenApp} />
+  ) : app.id === "contacts" ? (
+    <ContactsApp />
+  ) : app.id === "settings" ? (
+    <SettingsApp />
+  ) : (
+    <div className="p-4 h-full flex items-center justify-center">
+      <div className="text-muted-foreground text-sm text-center">
+        <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
+        <p className="opacity-50">{app.label} — Ready</p>
       </div>
+    </div>
+  )}
+</div>
     </motion.div>
   );
 };
