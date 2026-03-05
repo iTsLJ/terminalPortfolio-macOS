@@ -45,7 +45,7 @@ export default function SettingsApp({ lang: externalLang, onLangChange }: Settin
           <img
             src="/avatar.png"
             alt="Caio"
-            className="w-20 h-20 rounded-full border-2 mb-3 object-cover"
+            className="w-20 h-21 rounded-full border-3 mb-3 object-cover"
             style={{ borderColor: ACCENT }}
           />
           <p className="text-sm font-semibold text-white">Caio Resende</p>

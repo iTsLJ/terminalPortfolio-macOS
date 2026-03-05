@@ -5,6 +5,7 @@ import { AppInfo } from "./Dock";
 import TerminalApp from "./TerminalApp";
 import ContactsApp from "./ContactsApp";
 import SettingsApp from "./SettingsApp";
+import VSCodeApp from "./VSCodeApp";
 
 interface WindowProps {
   app: AppInfo;
@@ -179,7 +180,9 @@ const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp }: WindowProps) =>
     <TerminalApp onOpenApp={onOpenApp} />
   ) : app.id === "contacts" ? (
     <ContactsApp />
-  ) : app.id === "settings" ? (
+  ) : app.id === "vscode" ? (
+    <VSCodeApp />
+  ): app.id === "settings" ? (
     <SettingsApp />
   ) : (
     <div className="p-4 h-full flex items-center justify-center">
