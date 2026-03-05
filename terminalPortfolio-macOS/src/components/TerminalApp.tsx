@@ -29,7 +29,7 @@ const CONTENT = {
   contact       Contact information
   experience    Work experience
   clear         Clear terminal`,
-    about: `I am Caio Resende, a Software Engineering student at PUC Minas and an AWS Solutions Architect at ForceOne. I work on developing cloud solutions with a focus on efficient architecture, cost optimization, and infrastructure best practices. I am an enthusiast of languages, fluent in Portuguese and English, with advanced Spanish and intermediate German. I am always looking to learn new technologies and bring innovations to the work environment.`,
+    about: `I am Caio Resende, a Software Engineering student at PUC Minas and an AWS Solutions Architect at ForceOne. I work on developing cloud solutions with a focus on efficient architecture, cost optimization, and infrastructure best practices. I am an enthusiast of languages, fluent in Portuguese and English, with advanced Spanish and intermediate German. I am always looking to learn new technologies and bring innovations to the work environment.\n\nSou Caio Resende, estudante de Engenharia de Software na PUC Minas e arquiteto de soluções AWS na ForceOne. Atuo no desenvolvimento de soluções em nuvem com foco em arquitetura eficiente, otimização de custos e boas práticas de infraestrutura. Sou entusiasta de idiomas, fluente em português e inglês, com espanhol avançado e alemão em nível intermediário. Busco sempre aprender novas tecnologias e trazer inovações para o ambiente de trabalho.`,
     certificates: `→ AWS Certified Cloud Practitioner
 → AWS Certified AI Practitioner
 → AWS Certified Solutions Architect - Associate
@@ -55,7 +55,7 @@ LinkedIn: linkedin.com/in/caiosouzaderesende`,
   contato       Informações de contato
   experiencia   Experiência profissional
   clear         Limpar terminal`,
-    about: `Sou Caio Resende, estudante de Engenharia de Software na PUC Minas e arquiteto de soluções AWS na ForceOne. Atuo no desenvolvimento de soluções em nuvem com foco em arquitetura eficiente, otimização de custos e boas práticas de infraestrutura. Sou entusiasta de idiomas, fluente em português e inglês, com espanhol avançado e alemão em nível intermediário. Busco sempre aprender novas tecnologias e trazer inovações para o ambiente de trabalho.`,
+    about: `Sou Caio Resende, estudante de Engenharia de Software na PUC Minas e arquiteto de soluções AWS na ForceOne. Atuo no desenvolvimento de soluções em nuvem com foco em arquitetura eficiente, otimização de custos e boas práticas de infraestrutura. Sou entusiasta de idiomas, fluente em português e inglês, com espanhol avançado e alemão em nível intermediário. Busco sempre aprender novas tecnologias e trazer inovações para o ambiente de trabalho.\n\nI am Caio Resende, a Software Engineering student at PUC Minas and an AWS Solutions Architect at ForceOne. I work on developing cloud solutions with a focus on efficient architecture, cost optimization, and infrastructure best practices. I am an enthusiast of languages, fluent in Portuguese and English, with advanced Spanish and intermediate German. I am always looking to learn new technologies and bring innovations to the work environment.`,
     certificates: `→ AWS Certified Cloud Practitioner
 → AWS Certified AI Practitioner
 → AWS Certified Solutions Architect - Associate
