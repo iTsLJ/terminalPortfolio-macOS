@@ -12,15 +12,17 @@ export interface AppInfo {
   id: string;
   label: string;
   icon: string;
+  width?: number;
+  height?: number;
 }
 
 export const apps: AppInfo[] = [
   { id: "finder", label: "Finder", icon: finderIcon },
   { id: "safari", label: "Safari", icon: safariIcon },
-  { id: "terminal", label: "Terminal", icon: terminalIcon },
+  { id: "terminal", label: "Terminal", icon: terminalIcon, width: 1000, height: 630 },
   { id: "vscode", label: "VS Code", icon: vscodeIcon },
   { id: "settings", label: "Settings", icon: settingsIcon },
-  { id: "profile", label: "Contacts", icon: contactsIcon },
+  { id: "contacts", label: "Contacts", icon: contactsIcon, width: 500, height: 600 },
 ];
 
 interface DockProps {

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { X, Minus, Maximize2 } from "lucide-react";
 import { AppInfo } from "./Dock";
 import TerminalApp from "./TerminalApp";
+import ContactsApp from "./ContactsApp";
 
 interface WindowProps {
   app: AppInfo;
@@ -46,7 +47,13 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
   return (
     <motion.div
       className="mac-window-surface absolute"
-      style={{ left: position.x, top: position.y, width: 1000, height: 630, zIndex }}
+      style={{
+        left: position.x,
+        top: position.y,
+        width: app.width || 1000,
+        height: app.height || 630,
+        zIndex,
+      }}
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}
@@ -83,6 +90,8 @@ const AppWindow = ({ app, zIndex, onClose, onFocus }: WindowProps) => {
       <div className="h-[calc(100%-2.5rem)] overflow-hidden">
         {app.id === "terminal" ? (
           <TerminalApp />
+        ) : app.id === "contacts" ? (
+          <ContactsApp />
         ) : (
           <div className="p-4 h-full flex items-center justify-center">
             <div className="text-muted-foreground text-sm text-center">

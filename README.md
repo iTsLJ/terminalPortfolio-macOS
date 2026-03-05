@@ -4,6 +4,8 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Language](https://img.shields.io/badge/language-TypeScript-darkblue)
 ![Framework](https://img.shields.io/badge/framework-React-skyblue)
+![Language](https://img.shields.io/badge/language-JavaScript-yellow)
+![Framework](https://img.shields.io/badge/framework-Vanilla%20JavaScript-orange)
 
 Um **portfólio interativo inspirado no Terminal do macOS**, onde comandos simulam uma experiência real de linha de comando para apresentar informações profissionais, projetos e contatos.
 
@@ -19,10 +21,29 @@ Interface **minimalista, moderna e voltada para desenvolvedores**, permitindo na
 * [Installation](#installation)
 * [Usage](#usage)
 * [Tech Stack](#tech-stack)
+* [Project Structure](#project-structure)
 * [Contributing](#contributing)
 * [Project Information](#project-information)
 
 ---
+
+# 📸 Preview
+
+*(Screenshots ou gifs do funcionamento do terminal quando disponível)*
+
+---
+
+# ✨ Features
+
+* Interface de portfólio em estilo terminal
+* Navegação através de comandos de terminal
+* Simulação de CLI (Command Line Interface)
+* Exibição de projetos, habilidades e informações do desenvolvedor
+* Design inspirado no terminal do macOS
+* Interface interativa para explorar o portfólio
+
+---
+
 
 # 📸 Preview
 
@@ -97,6 +118,46 @@ contact   → informações de contato
 
 * React
 * CSS3
+
+---
+
+
+---
+
+# 💻 Usage
+
+Após abrir o projeto no navegador, utilize comandos no terminal para navegar pelo portfólio.
+
+### Exemplos de comandos
+
+```
+help      → mostra os comandos disponíveis
+about     → informações sobre o desenvolvedor
+projects  → lista de projetos
+skills    → habilidades técnicas
+contact   → informações de contato
+```
+
+---
+
+# 🧰 Tech Stack
+
+* HTML5
+* CSS3
+* JavaScript (Vanilla JS)
+
+---
+
+# 📁 Project Structure
+
+```
+terminalPortfolio-macOS
+│
+├── index.html
+├── style.css
+├── script.js
+└── assets/
+```
 
 ---
 
