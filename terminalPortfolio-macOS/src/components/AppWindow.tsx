@@ -6,6 +6,7 @@ import TerminalApp from "./TerminalApp";
 import ContactsApp from "./ContactsApp";
 import SettingsApp from "./SettingsApp";
 import VSCodeApp from "./VSCodeApp";
+import SafariApp from "./SafariApp";
 
 interface WindowProps {
   app: AppInfo;
@@ -17,7 +18,7 @@ interface WindowProps {
 
 type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw" | null;
 
-const MIN_WIDTH  = 320;
+const MIN_WIDTH  = 350;
 const MIN_HEIGHT = 200;
 
 const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp }: WindowProps) => {
@@ -182,6 +183,8 @@ const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp }: WindowProps) =>
     <ContactsApp />
   ) : app.id === "vscode" ? (
     <VSCodeApp />
+  ) : app.id === "safari" ? (
+  <SafariApp />
   ): app.id === "settings" ? (
     <SettingsApp />
   ) : (

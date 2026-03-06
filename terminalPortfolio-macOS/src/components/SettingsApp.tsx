@@ -45,7 +45,7 @@ export default function SettingsApp({ lang: externalLang, onLangChange }: Settin
           <img
             src="/avatar.png"
             alt="Caio"
-            className="w-20 h-21 rounded-full border-3 mb-3 object-cover"
+            className="w-20 h-20 rounded-full border-2 mb-3 object-cover"
             style={{ borderColor: ACCENT }}
           />
           <p className="text-sm font-semibold text-white">Caio Resende</p>
@@ -133,7 +133,7 @@ const GeneralSection = ({ t }: { lang: Lang; t: (en: string, pt: string) => stri
       subtitle={t("System information and preferences", "Informações do sistema e preferências")}
     />
     <Card>
-      <Row label={t("Name", "Nome")}              value="Caio Souza de Resende"           accent={ACCENT} />
+      <Row label={t("Name", "Nome")}              value="Caio Resende"           accent={ACCENT} />
       <Row label={t("Age", "Idade")}               value="21"                                     />
       <Row label={t("Role", "Cargo")}              value="Junior Cloud Architect"                 />
       <Row label={t("Company", "Empresa")}         value="ForceOne"                               />
@@ -300,14 +300,20 @@ const EducationSection = ({ t }: { lang: Lang; t: (en: string, pt: string) => st
 const PhotosSection = ({ t }: { lang: Lang; t: (en: string, pt: string) => string }) => (
   <div>
     <SectionTitle title="Photos" subtitle={t("My photos", "Minhas fotos")} />
-    <div className="grid grid-cols-2 gap-3">
-      <div className="rounded-xl overflow-hidden border" style={{ borderColor: "#1e2a38" }}>
-        <img
-          src="/Foto1.jpeg"
-          alt="Photo"
-          className="w-full h-57 object-cover"
-        />
-      </div>
+    <div className="columns-2 gap-3 space-y-3">
+      {["/Foto1.jpeg", "/Educat1.jpeg", "/Educat2.jpeg", "/Educat3.jpeg"].map((src) => (
+        <div
+          key={src}
+          className="rounded-xl overflow-hidden border break-inside-avoid"
+          style={{ borderColor: "#1e2a38" }}
+        >
+          <img
+            src={src}
+            alt="Photo"
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
+        </div>
+      ))}
     </div>
   </div>
 );
