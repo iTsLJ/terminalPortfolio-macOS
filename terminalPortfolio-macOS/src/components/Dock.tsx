@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import DockItem from "./DockItem";
 
-import finderIcon from "@/assets/finder.png";
+import mapsIcon from "@/assets/maps.jpg";
 import safariIcon from "@/assets/safari.png";
 import terminalIcon from "@/assets/terminal.png";
 import vscodeIcon from "@/assets/vscode.png";
@@ -17,7 +17,7 @@ export interface AppInfo {
 }
 
 export const apps: AppInfo[] = [
-  { id: "finder", label: "Finder", icon: finderIcon },
+  { id: "maps", label: "Maps", icon: mapsIcon },
   { id: "safari", label: "Safari", icon: safariIcon },
   { id: "terminal", label: "Terminal", icon: terminalIcon, width: 1000, height: 630 },
   { id: "vscode", label: "VS Code", icon: vscodeIcon },

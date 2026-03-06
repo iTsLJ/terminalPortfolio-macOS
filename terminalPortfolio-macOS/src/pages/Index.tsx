@@ -18,7 +18,6 @@ const Index = () => {
       setOpenApps((prev) => {
         const existing = prev.find((a) => a.id === id);
         if (existing) {
-          // Close if already open
           return prev.filter((a) => a.id !== id);
         }
         const newZ = topZ + 1;
@@ -59,6 +58,7 @@ const Index = () => {
               zIndex={openApp.zIndex}
               onClose={() => handleClose(openApp.id)}
               onFocus={() => handleFocus(openApp.id)}
+              onOpenApp={handleAppClick}
             />
           );
         })}

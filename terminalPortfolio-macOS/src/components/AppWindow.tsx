@@ -7,6 +7,7 @@ import ContactsApp from "./ContactsApp";
 import SettingsApp from "./SettingsApp";
 import VSCodeApp from "./VSCodeApp";
 import SafariApp from "./SafariApp";
+import MapsApp from "./MapsApp";
 
 interface WindowProps {
   app: AppInfo;
@@ -114,17 +115,17 @@ const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp }: WindowProps) =>
     [size, position, onFocus]
   );
 
-  const EDGE = 6; // px hit area
+  const EDGE = 6;
 
   const resizeHandles: { dir: ResizeDirection; style: React.CSSProperties; cursor: string }[] = [
-    { dir: "n",  cursor: "ns-resize",   style: { top: 0,         left: EDGE,      right: EDGE,     height: EDGE                          } },
-    { dir: "s",  cursor: "ns-resize",   style: { bottom: 0,      left: EDGE,      right: EDGE,     height: EDGE                          } },
-    { dir: "e",  cursor: "ew-resize",   style: { top: EDGE,      right: 0,        bottom: EDGE,    width: EDGE                           } },
-    { dir: "w",  cursor: "ew-resize",   style: { top: EDGE,      left: 0,         bottom: EDGE,    width: EDGE                           } },
-    { dir: "ne", cursor: "nesw-resize", style: { top: 0,         right: 0,        width: EDGE * 2, height: EDGE * 2                      } },
-    { dir: "nw", cursor: "nwse-resize", style: { top: 0,         left: 0,         width: EDGE * 2, height: EDGE * 2                      } },
-    { dir: "se", cursor: "nwse-resize", style: { bottom: 0,      right: 0,        width: EDGE * 2, height: EDGE * 2                      } },
-    { dir: "sw", cursor: "nesw-resize", style: { bottom: 0,      left: 0,         width: EDGE * 2, height: EDGE * 2                      } },
+    { dir: "n",  cursor: "ns-resize",   style: { top: 0,         left: EDGE,      right: EDGE,     height: EDGE  } },
+    { dir: "s",  cursor: "ns-resize",   style: { bottom: 0,      left: EDGE,      right: EDGE,     height: EDGE  } },
+    { dir: "e",  cursor: "ew-resize",   style: { top: EDGE,      right: 0,        bottom: EDGE,    width: EDGE   } },
+    { dir: "w",  cursor: "ew-resize",   style: { top: EDGE,      left: 0,         bottom: EDGE,    width: EDGE   } },
+    { dir: "ne", cursor: "nesw-resize", style: { top: 0,         right: 0,        width: EDGE * 2, height: EDGE * 2 } },
+    { dir: "nw", cursor: "nwse-resize", style: { top: 0,         left: 0,         width: EDGE * 2, height: EDGE * 2 } },
+    { dir: "se", cursor: "nwse-resize", style: { bottom: 0,      right: 0,        width: EDGE * 2, height: EDGE * 2 } },
+    { dir: "sw", cursor: "nesw-resize", style: { bottom: 0,      left: 0,         width: EDGE * 2, height: EDGE * 2 } },
   ];
 
   return (
@@ -176,26 +177,28 @@ const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp }: WindowProps) =>
       </div>
 
       {/* Content */}
-<div className="h-[calc(100%-2.5rem)] overflow-hidden">
-  {app.id === "terminal" ? (
-    <TerminalApp onOpenApp={onOpenApp} />
-  ) : app.id === "contacts" ? (
-    <ContactsApp />
-  ) : app.id === "vscode" ? (
-    <VSCodeApp />
-  ) : app.id === "safari" ? (
-  <SafariApp />
-  ): app.id === "settings" ? (
-    <SettingsApp />
-  ) : (
-    <div className="p-4 h-full flex items-center justify-center">
-      <div className="text-muted-foreground text-sm text-center">
-        <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
-        <p className="opacity-50">{app.label} — Ready</p>
+      <div className="h-[calc(100%-2.5rem)] overflow-hidden">
+        {app.id === "terminal" ? (
+          <TerminalApp onOpenApp={onOpenApp} />
+        ) : app.id === "contacts" ? (
+          <ContactsApp />
+        ) : app.id === "vscode" ? (
+          <VSCodeApp />
+        ) : app.id === "safari" ? (
+          <SafariApp />
+        ) : app.id === "settings" ? (
+          <SettingsApp />
+        ) : app.id === "maps" ? (
+          <MapsApp />
+        ) : (
+          <div className="p-4 h-full flex items-center justify-center">
+            <div className="text-muted-foreground text-sm text-center">
+              <img src={app.icon} alt={app.label} className="w-16 h-16 rounded-xl mx-auto mb-3 opacity-40" />
+              <p className="opacity-50">{app.label} — Ready</p>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-  )}
-</div>
     </motion.div>
   );
 };
