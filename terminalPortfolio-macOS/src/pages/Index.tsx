@@ -10,8 +10,9 @@ interface OpenApp {
 }
 
 const Index = () => {
-  const [openApps, setOpenApps] = useState<OpenApp[]>([]);
-  const [topZ, setTopZ] = useState(10);
+  const [openApps, setOpenApps]   = useState<OpenApp[]>([]);
+  const [topZ, setTopZ]           = useState(10);
+  const [maximizedApp, setMaximizedApp] = useState<string | null>(null);
 
   const handleAppClick = useCallback(
     (id: string) => {
@@ -41,6 +42,7 @@ const Index = () => {
 
   const handleClose = useCallback((id: string) => {
     setOpenApps((prev) => prev.filter((a) => a.id !== id));
+    setMaximizedApp((prev) => (prev === id ? null : prev));
   }, []);
 
   return (
@@ -59,15 +61,18 @@ const Index = () => {
               onClose={() => handleClose(openApp.id)}
               onFocus={() => handleFocus(openApp.id)}
               onOpenApp={handleAppClick}
+              onMaximizeChange={(isMax) => setMaximizedApp(isMax ? openApp.id : null)}
             />
           );
         })}
       </AnimatePresence>
 
-      <Dock
-        activeApps={openApps.map((a) => a.id)}
-        onAppClick={handleAppClick}
-      />
+      {!maximizedApp && (
+        <Dock
+          activeApps={openApps.map((a) => a.id)}
+          onAppClick={handleAppClick}
+        />
+      )}
     </div>
   );
 };

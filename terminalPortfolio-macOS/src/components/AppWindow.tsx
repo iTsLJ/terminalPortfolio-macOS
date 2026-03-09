@@ -15,6 +15,7 @@ interface WindowProps {
   onClose: () => void;
   onFocus: () => void;
   onOpenApp: (id: string) => void;
+  onMaximizeChange: (maximized: boolean) => void;
 }
 
 type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw" | null;
@@ -22,7 +23,7 @@ type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw" | null;
 const MIN_WIDTH  = 350;
 const MIN_HEIGHT = 200;
 
-const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp }: WindowProps) => {
+const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp, onMaximizeChange }: WindowProps) => {
   const [position, setPosition] = useState({ x: 100 + Math.random() * 200, y: 60 + Math.random() * 100 });
   const [size, setSize]         = useState({ width: app.width || 1000, height: app.height || 630 });
   const [isMaximized, setIsMaximized] = useState(false);
@@ -60,12 +61,14 @@ const AppWindow = ({ app, zIndex, onClose, onFocus, onOpenApp }: WindowProps) =>
       setPosition({ x: 0, y: 28 });
       setSize({ width: window.innerWidth, height: window.innerHeight - 28 });
       setIsMaximized(true);
+      onMaximizeChange(true);
     } else {
       setPosition(prevSizePos.current.position);
       setSize(prevSizePos.current.size);
       setIsMaximized(false);
+      onMaximizeChange(false);
     }
-  }, [isMaximized, position, size]);
+  }, [isMaximized, position, size, onMaximizeChange]);
 
   /* ── Resize ── */
   const handleResizeMouseDown = useCallback(

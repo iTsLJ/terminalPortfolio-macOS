@@ -9,8 +9,6 @@ interface Tab {
 
 const tabs: Tab[] = [
   { id: 'info', label: 'Info' },
-  { id: 'history', label: 'History' },
-  { id: 'share', label: 'Share' },
 ];
 
 const iconMap: Record<string, React.ReactNode> = {
